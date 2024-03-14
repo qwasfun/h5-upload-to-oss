@@ -53,13 +53,24 @@ function check_object_radio() {
   }
 }
 
+function dateDir() {
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+
+  if (month < 10) {
+    month = '0' + month;
+  }
+
+  return year + '/' + month + '/';
+}
+
 function get_dirname() {
-  dir = document.getElementById('dirname').value;
+  let dir = document.getElementById('dirname').value;
   if (dir != '' && dir.indexOf('/') != dir.length - 1) {
     dir = dir + '/';
   }
-  //alert(dir)
-  g_dirname = dir;
+  g_dirname = dir + dateDir();
 }
 
 function random_string(len) {
