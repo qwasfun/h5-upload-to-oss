@@ -24,11 +24,11 @@ ossDomainInput.addEventListener('input', () => {
   localStorage.ossDomain = ossDomain = ossDomainInput.value;
 });
 
-let customName = ''
-g_dirname = '';
-g_object_name = '';
-g_object_name_type = '';
-now = timestamp = Date.parse(new Date()) / 1000;
+let customName = '';
+let g_dirname = '';
+let g_object_name = '';
+let g_object_name_type = '';
+let now = (timestamp = Date.parse(new Date()) / 1000);
 
 var policyText = {
   // "expiration": "2020-01-01T12:00:00.000Z", //设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
@@ -141,14 +141,12 @@ var uploader = new plupload.Uploader({
     PostInit: function () {
       document.getElementById('ossfile').innerHTML = '';
       document.getElementById('postfiles').onclick = function () {
-        console.log('onclick',plupload)
         set_upload_param(uploader, '', false);
         return false;
       };
     },
 
     FilesAdded: function (up, files) {
-      console.log('add',files)
       plupload.each(files, function (file) {
         document.getElementById('ossfile').innerHTML +=
           '<div id="' +
@@ -164,11 +162,13 @@ var uploader = new plupload.Uploader({
     },
 
     BeforeUpload: function (up, file) {
-      console.log("before",file)
       check_object_radio();
-      if(g_object_name_type=='custom_name'&& document.getElementById('customFilename').value== '' ){
-        alert("未输入文件名称，请刷新页面后在上传")
-        return false
+      if (
+        g_object_name_type == 'custom_name' &&
+        document.getElementById('customFilename').value == ''
+      ) {
+        alert('未输入文件名称，请刷新页面后在上传');
+        return false;
       }
       get_dirname();
       set_upload_param(up, file.name, true);
